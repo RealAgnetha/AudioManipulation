@@ -5,7 +5,6 @@
 const lowerBandThreshold = 350;
 const higherBandThreshold = 8000;
 
-
 // instigate our audio context
 let audioCtx;
 
@@ -54,15 +53,16 @@ audioElement.addEventListener(
     false
 );
 
-const diff = higherBandThreshold-lowerBandThreshold;
-const centerFreq = higherBandThreshold-(1/2)*diff;
+const diff = higherBandThreshold - lowerBandThreshold;
+const centerFreq = higherBandThreshold - (1 / 2) * diff;
+
 function init() {
     audioCtx = new AudioContext();
     let lowFilter = new BiquadFilterNode(audioCtx, {type: 'lowshelf', frequency: lowerBandThreshold});
     let midFilter = new BiquadFilterNode(audioCtx, {type: 'bandpass', frequency: centerFreq, Q: 1});
     let highFilter = new BiquadFilterNode(audioCtx, {type: 'highshelf', frequency: higherBandThreshold})
 
-  
+
     Lows.oninput = () => lowFilter.gain.value = Lows.value;
     Mids.oninput = () => midFilter.gain.value = Mids.value;
     Highs.oninput = () => highFilter.gain.value = Highs.value;
