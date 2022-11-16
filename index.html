@@ -8,10 +8,10 @@
 <body>
 
 
-<div id="container">
+<div>
 <h1>Audio Manipulator</h1>
 
-<div>
+<div id="audio-div">
     <section>
         <label for="volume">Volume</label>
         <input
@@ -32,11 +32,11 @@
     </section>
 
     <section>
-        <audio id="audio-track" src="public/Land_of_8_Bits.wav"></audio>
+        <audio src="public/Land_of_8_Bits.wav"></audio>
         <br>
         <button
                 aria-checked="false"
-                class="tape-controls-play"
+                class="play-btn"
                 data-playing="false"
                 role="switch"
         >
@@ -57,7 +57,7 @@
 <div>
     <p>Visuals</p>
 
-    <canvas id="canvas1"></canvas>
+    <canvas></canvas>
 </div>
 
 </div>

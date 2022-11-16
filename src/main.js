@@ -9,7 +9,7 @@ let audioCtx;
 const audioElement = document.querySelector("audio");
 let track;
 
-const playButton = document.querySelector(".tape-controls-play");
+const playButton = document.querySelector(".play-btn");
 
 // play pause btn
 playButton.addEventListener(
@@ -18,7 +18,8 @@ playButton.addEventListener(
         if (!audioCtx) {
             init();
         }
-        // autoplay policy
+
+        // check if context is in suspended state (autoplay policy)
         if (audioCtx.state === "suspended") {
             audioCtx.resume();
         }
@@ -30,11 +31,14 @@ playButton.addEventListener(
             audioElement.pause();
             playButton.dataset.playing = "false";
         }
+
+        // Toggle the state between play and not playing
         let state = playButton.getAttribute("aria-checked") === "true";
         playButton.setAttribute("aria-checked", state ? "false" : "true");
     },
     false
 );
+
 
 //after track
 audioElement.addEventListener(
@@ -67,36 +71,6 @@ function init() {
         mediaElement: audioElement,
     });
 
-    //le analyser
-    const analyserContainer = document.getElementById("visualizer-container");
-    const canvas = document.getElementById("canvas1");
-    const canvasCtx = canvas.getContext('2d');
-
-    let analyser = track.createAnalyser();
-    analyser.fftSize = 2048;
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
-    
-    const barWidth = canvas.width / bufferLength;
-    let barHeight;
-    let x = 0;
-    
-    function visualize() {
-        x=0;
-        canvasCtx.clearRect(0,0, canvas.width, canvas.height); //clear old frames
-        analyser.getByteFrequencyData(dataArray);
-        
-        for(let i=0; i < bufferLength; i++) {
-            barHeight = dataArray[i];
-            canvasCtx.fillStyle = 'black';
-            canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-            x += barWidth;
-        }
-        requestAnimationFrame(visualize);
-        
-    }
-visualize();
-
     // Create the node that controls the volume.
     const gainNode = new GainNode(audioCtx);
 
@@ -109,10 +83,13 @@ visualize();
         false
     );
 
+  
+    
     // connect graph
     gainNode.connect(audioCtx.destination);
-    track.connect(analyserNode);
-    analyser.connect(lowFilter);
+    //track.connect(analyserNode);
+    //analyser.connect(lowFilter);
+    track.connect(lowFilter);
     lowFilter.connect(midFilter);
     midFilter.connect(highFilter);
     highFilter.connect(gainNode);
