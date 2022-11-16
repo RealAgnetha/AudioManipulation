@@ -9,56 +9,59 @@
 
 
 <div>
-<h1>Audio Manipulator</h1>
 
-<div id="audio-div">
-    <section>
-        <label for="volume">Volume</label>
-        <input
-                class="control-volume"
-                data-action="volume"
-                id="volume"
-                list="gain-vals"
-                max="2"
-                min="0"
-                step="0.01"
-                type="range"
-                value="1"
-        />
-        <datalist id="gain-vals">
-            <option label="min" value="0"></option>
-            <option label="max" value="2"></option>
-        </datalist>
-    </section>
+    <h1>Audio Manipulator</h1>
 
-    <section>
-        <audio src="public/Land_of_8_Bits.wav"></audio>
-        <br>
-        <button
-                aria-checked="false"
-                class="play-btn"
-                data-playing="false"
-                role="switch"
-        >
-            <span>Play/Pause</span>
-        </button>
-    </section>
-</div>
+    <div id="audio-div">
+        <section>
+            <input
+                    class="control-volume"
+                    data-action="volume"
+                    id="volume"
+                    list="gain-vals"
+                    max="2"
+                    min="0"
+                    step="0.01"
+                    type="range"
+                    value="1"
+            />
+            <label for="volume">Volume</label>
 
+            <datalist id="gain-vals">
+                <option label="min" value="0"></option>
+                <option label="max" value="2"></option>
+            </datalist>
+        </section>
 
-<p>Lows</p>
-<label for="Lows"></label><input type="range" min="-40" max="0" step="0.01" id="Lows">
-<p>Mids</p>
-<label for="Mids"></label><input type="range" min="-40" max="0" step="0.01" id="Mids">
-<p>Highs</p>
-<label for="Highs"></label><input type="range" min="-40" max="0" step="0.01" id="Highs">
+        <section>
+            <audio src="public/Land_of_8_Bits.wav"></audio>
+            <br>
+            <button
+                    aria-checked="false"
+                    class="play-btn"
+                    data-playing="false"
+                    role="switch"
+            >
+                <span>Play/Pause</span>
+            </button>
+        </section>
+    </div>
 
+    <div id="filters">
+        <p>Lows</p>
+        <label for="Lows"></label><input type="range" min="-40" max="0" step="0.01" id="Lows">
+        <p>Mids</p>
+        <label for="Mids"></label><input type="range" min="-40" max="0" step="0.01" id="Mids">
+        <p>Highs</p>
+        <label for="Highs"></label><input type="range" min="-40" max="0" step="0.01" id="Highs">
+    </div>
+    
+    <div id="visualisation">
+        <h1>Visualisation</h1>
 
-<div>
-    <p>Visuals</p>
-
-    <canvas></canvas>
-</div>
+        <canvas id="canvas1"></canvas>
+        
+    </div>
 
 </div>
 

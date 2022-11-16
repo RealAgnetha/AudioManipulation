@@ -6,9 +6,9 @@ const lowerBandThreshold = 350;
 const higherBandThreshold = 8000;
 
 let audioCtx;
-const audioElement = document.querySelector("audio");
 let track;
 
+const audioElement = document.querySelector("audio");
 const playButton = document.querySelector(".play-btn");
 
 // play pause btn
@@ -39,7 +39,6 @@ playButton.addEventListener(
     false
 );
 
-
 //after track
 audioElement.addEventListener(
     "ended",
@@ -50,12 +49,20 @@ audioElement.addEventListener(
     false
 );
 
-
+//for bandpass 
 const diff = higherBandThreshold - lowerBandThreshold;
 const centerFreq = higherBandThreshold - (1 / 2) * diff;
 
+const container = document.getElementById("visualisation");
+const canvas = document.getElementById("canvas1");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
 function init() {
     audioCtx = new AudioContext();
+    track = new MediaElementAudioSourceNode(audioCtx, {
+        mediaElement: audioElement,
+    });
 
     //le filters
     let lowFilter = new BiquadFilterNode(audioCtx, {type: 'lowshelf', frequency: lowerBandThreshold});
@@ -66,14 +73,9 @@ function init() {
     Mids.oninput = () => midFilter.gain.value = Mids.value;
     Highs.oninput = () => highFilter.gain.value = Highs.value;
 
-
-    track = new MediaElementAudioSourceNode(audioCtx, {
-        mediaElement: audioElement,
-    });
-
-    // Create the node that controls the volume.
+    
+    // Volume
     const gainNode = new GainNode(audioCtx);
-
     const volumeControl = document.querySelector('[data-action="volume"]');
     volumeControl.addEventListener(
         "input",
@@ -82,13 +84,10 @@ function init() {
         },
         false
     );
-
-  
     
-    // connect graph
+    
+    // audio graph
     gainNode.connect(audioCtx.destination);
-    //track.connect(analyserNode);
-    //analyser.connect(lowFilter);
     track.connect(lowFilter);
     lowFilter.connect(midFilter);
     midFilter.connect(highFilter);
