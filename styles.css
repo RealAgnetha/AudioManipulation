@@ -25,6 +25,16 @@ h1 {
     text-align: center;
 }
 
+#filters {
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    width: 50%;
+}
+
 #container {
     top: 0;
     left: 0;
