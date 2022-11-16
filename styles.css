@@ -1,0 +1,26 @@
+﻿
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: antiquewhite;
+    width: 100%;
+    height: 100%;
+}
+#audio-track {
+    display:block;
+}
+
+#canvas1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+

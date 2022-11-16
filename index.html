@@ -3,27 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>AVT Übungsaufgabe 02</title>
-    <style>
-        body {
-            justify-content: center;
-            align-items: center;
-            width: 100vw;
-            height: 100vh;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+
+<div id="container">
 <h1>Audio Manipulator</h1>
 
 <div>
-    <section class="master-controls">
+    <section>
         <label for="volume">Volume</label>
-
         <input
                 class="control-volume"
                 data-action="volume"
@@ -42,7 +32,7 @@
     </section>
 
     <section>
-        <audio crossorigin="anonymous" src="public/Land_of_8_Bits.wav"></audio>
+        <audio id="audio-track" src="public/Land_of_8_Bits.wav"></audio>
         <br>
         <button
                 aria-checked="false"
@@ -63,6 +53,14 @@
 <p>Highs</p>
 <label for="Highs"></label><input type="range" min="-40" max="0" step="0.01" id="Highs">
 
+
+<div>
+    <p>Visuals</p>
+
+    <canvas id="canvas1"></canvas>
+</div>
+
+</div>
 
 <script src="./src/main.js" type="module"></script>
 
