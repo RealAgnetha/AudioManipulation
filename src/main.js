@@ -64,11 +64,36 @@ let analyser;
 
 //visualizeBtn.addEventListener("click", function () {
 function startVisualizing() {
-    analyser = audioCtx.createAnalyser();
-    //const analyser = new AnalyserNode(audioCtx);
+   
+}
 
-    track.connect(analyser);
-    analyser.connect(audioCtx.destination);
+function init() {
+    audioCtx = new AudioContext();
+    track = new MediaElementAudioSourceNode(audioCtx, {
+        mediaElement: audioElement,
+    });
+
+    // le filters
+    let lowFilter = new BiquadFilterNode(audioCtx, {type: 'lowshelf', frequency: lowerBandThreshold});
+    let midFilter = new BiquadFilterNode(audioCtx, {type: 'bandpass', frequency: centerFreq, Q: 1});
+    let highFilter = new BiquadFilterNode(audioCtx, {type: 'highshelf', frequency: higherBandThreshold})
+
+    Lows.oninput = () => lowFilter.gain.value = Lows.value;
+    Mids.oninput = () => midFilter.gain.value = Mids.value;
+    Highs.oninput = () => highFilter.gain.value = Highs.value;
+    
+    // Volume
+    const gainNode = new GainNode(audioCtx);
+    const volumeControl = document.querySelector('[data-action="volume"]');
+    volumeControl.addEventListener(
+        "input",
+        () => {
+            gainNode.gain.value = volumeControl.value;
+        },
+        false
+    );
+
+    analyser = audioCtx.createAnalyser();
 
     analyser.fftSize = 2048;
     const bufferLength = analyser.frequencyBinCount;
@@ -91,41 +116,12 @@ function startVisualizing() {
         requestAnimationFrame(visualize);
     }
     visualize();
-}
-
-function init() {
-    audioCtx = new AudioContext();
-    track = new MediaElementAudioSourceNode(audioCtx, {
-        mediaElement: audioElement,
-    });
-
-    // le filters
-    let lowFilter = new BiquadFilterNode(audioCtx, {type: 'lowshelf', frequency: lowerBandThreshold});
-    let midFilter = new BiquadFilterNode(audioCtx, {type: 'bandpass', frequency: centerFreq, Q: 1});
-    let highFilter = new BiquadFilterNode(audioCtx, {type: 'highshelf', frequency: higherBandThreshold})
-
-    Lows.oninput = () => lowFilter.gain.value = Lows.value;
-    Mids.oninput = () => midFilter.gain.value = Mids.value;
-    Highs.oninput = () => highFilter.gain.value = Highs.value;
-
-
-    // Volume
-    const gainNode = new GainNode(audioCtx);
-    const volumeControl = document.querySelector('[data-action="volume"]');
-    volumeControl.addEventListener(
-        "input",
-        () => {
-            gainNode.gain.value = volumeControl.value;
-        },
-        false
-    );
 
     // audio graph
     gainNode.connect(audioCtx.destination);
     track.connect(lowFilter);
     lowFilter.connect(midFilter);
     midFilter.connect(highFilter);
-    highFilter.connect(gainNode);
+    highFilter.connect(analyser);
+    analyser.connect(gainNode);
 }
-
-
