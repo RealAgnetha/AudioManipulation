@@ -1,0 +1,98 @@
+<html lang="en">
+<head>
+    <title>AVT Übungsaufgabe 02</title>
+</head>
+<body>
+
+<h1>Hello</h1>
+
+
+<div id="boombox">
+    <div class="boombox-handle"></div>
+
+    <div class="boombox-body">
+
+        <section class="master-controls">
+            <label for="volume">Volume</label>
+
+            <input
+                    class="control-volume"
+                    data-action="volume"
+                    id="volume"
+                    list="gain-vals"
+                    max="2"
+                    min="0"
+                    step="0.01"
+                    type="range"
+                    value="1"
+            />
+            <datalist id="gain-vals">
+                <option label="min" value="0"></option>
+                <option label="max" value="2"></option>
+            </datalist>
+        </section>
+
+        <section class="tape">
+            <audio crossorigin="anonymous" src="public/Land_of_8_Bits.wav"></audio>
+            <br>
+            <button
+                    aria-checked="false"
+                    class="tape-controls-play"
+                    data-playing="false"
+                    role="switch"
+            >
+                <span>Play/Pause</span>
+            </button>
+        </section>
+    </div>
+</div>
+
+
+<p>Lows</p>
+<label for="Lows"></label><input type="range" min="-40" max="0" step="0.01" id="Lows">
+<p>Mids</p>
+<label for="Mids"></label><input type="range" min="-40" max="0" step="0.01" id="Mids">
+<p>Highs</p>
+<label for="Highs"></label><input type="range" min="-40" max="0" step="0.01" id="Highs">
+
+
+
+<!--div id="appwindow">
+    <h2>Audio Mixer</h2>
+    <form>
+        <div class="audiopanel" style="text-align: center;">
+            <h3>Equalizer</h3>
+            <canvas id="eqcanvas" width="400" height="250">
+            </canvas><br>
+            <div style="display: inline-block; margin: 0 20px;">
+                <span id="eq_label_0"></span><br>
+                <div style="display: inline-block;">
+                    <span id="eq_gain_0" style="display: inline-block; height: 100px; margin: 10px;"></span><br>
+                    <span>Hoehen</span>
+                </div>
+            </div>
+            <div style="display: inline-block; margin: 0 20px;">
+                <span id="eq_label_1"></span><br>
+                <div style="display: inline-block;">
+                    <span id="eq_gain_1" style="display: inline-block; height: 100px; margin: 10px;"></span><br>     <span>Mitten</span>
+                </div>
+               
+            </div>
+            <div style="display: inline-block; margin: 0 20px;">
+                <span id="eq_label_2"></span><br>
+                <div style="display: inline-block;">
+                    <span id="eq_gain_2" style="display: inline-block; height: 100px; margin: 10px;"></span><br>
+                    <span>Tiefen</span>
+                </div>
+            </div>
+           
+        </div>
+
+
+    </form>
+</div-->
+
+
+<script src="./src/main.js" type="module"></script>
+</body>
+</html>
