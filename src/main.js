@@ -15,8 +15,6 @@ const playButton = document.getElementById("play-btn");
 const diff = higherBandThreshold - lowerBandThreshold;
 const centerFreq = higherBandThreshold - (1 / 2) * diff;
 
-
-
 // play pause btn 
 playButton.addEventListener(
     'click',
@@ -125,3 +123,12 @@ function init() {
     highFilter.connect(analyser);
     analyser.connect(gainNode);
 }
+
+/**
+ * Quellen: 
+ * https://www.delamar.de/musikproduktion/eq-uebersicht-frequenzbereiche-628/
+ * https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API
+ * https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
+ * https://www.youtube.com/watch?v=P032-bbPOXQ&t=1284s&ab_channel=IntelligentSoundEng
+ * https://www.youtube.com/watch?v=VXWvfrmpapI&t=2305s&ab_channel=Frankslaboratory
+ * */
